@@ -20,12 +20,13 @@ namespace Ordering.Application.Features.Commands.CheckoutOrder
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
         private readonly ILogger<CheckoutOrderCommandHandler> _logger;
-        public CheckoutOrderCommandHandler(IOrderRepository orderRepository, IMapper mapper, IEmailService emailService, ILogger logger)
+        public CheckoutOrderCommandHandler(IOrderRepository orderRepository, IMapper mapper, 
+            IEmailService emailService, ILogger<CheckoutOrderCommandHandler> logger)
         {
             _orderRepository = orderRepository ?? throw new ArgumentNullException(nameof(orderRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _emailService = emailService ?? throw new ArgumentNullException(nameof(emailService));
-            _logger = (ILogger<CheckoutOrderCommandHandler>)(logger ?? throw new ArgumentNullException(nameof(logger)));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public async Task<int> Handle(CheckoutOrderCommand request, CancellationToken cancellationToken)
